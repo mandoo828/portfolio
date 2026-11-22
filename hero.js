@@ -28,6 +28,15 @@ if (hero) start(hero);
 
 async function start(hero) {
   const canvas = hero.querySelector(".hero-canvas");
+  // Safety net: pin the canvas inside the hero even if the stylesheet hasn't loaded (or an old one is cached),
+  // so resizing the canvas can never make the page grow.
+  Object.assign(canvas.style, { position: "absolute", inset: "0", width: "100%", height: "100%", display: "block" });
+  if (getComputedStyle(hero).overflow !== "hidden") {
+    // the hero styles are missing: give it a size of its own and hide the screen-reader heading
+    Object.assign(hero.style, { position: "relative", overflow: "hidden", height: "calc(100svh - 90px)", minHeight: "520px" });
+    const h1 = hero.querySelector(".sr-only");
+    if (h1) Object.assign(h1.style, { position: "absolute", width: "1px", height: "1px", overflow: "hidden", clip: "rect(0,0,0,0)" });
+  }
   const cursor = hero.querySelector(".hero-cursor");
   const hint = hero.querySelector(".hero-hint");
 
