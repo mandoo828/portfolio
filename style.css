@@ -1,7 +1,7 @@
 /* ---- Colors: change these to restyle the whole site ---- */
 :root {
   --ink: #111111;      /* text and borders */
-  --bg: #c7f3ff;       /* page background */
+  --bg: #77bdfc;       /* page background */
   --paper: #f3efe6;    /* light text on dark areas */
   --accent: #2b3dff;   /* main color (electric blue) */
   --pop1: #ff5a36;     /* project placeholder colors */
@@ -199,22 +199,26 @@ nav .nav-cta:hover { background: var(--accent); }
 }
 .piece:hover img { filter: drop-shadow(0 26px 30px rgba(40, 25, 10, 0.28)); }
 
+/* project title: hidden until the thumbnail is hovered */
 .caption {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 10px;
+  display: block;
   margin-top: 14px;
   white-space: nowrap;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
 }
-.caption .num {
-  grid-row: span 2;
-  font-weight: 900;
-  font-size: 1.9rem;
-  line-height: 1;
-  color: var(--accent);
+.piece:hover .caption,
+.piece:focus-visible .caption { opacity: 1; transform: none; }
+/* phones and tablets have no hover: always show the titles there */
+@media (hover: none) {
+  .caption { opacity: 1; transform: none; }
 }
-.caption .title { font-weight: 800; font-size: 1.1rem; line-height: 1.2; }
-.caption .meta { font-weight: 500; font-size: 0.9rem; opacity: 0.6; }
 
 /* Individual placements */
 .p-cashmere { left: 0; top: 6vw; width: 29vw; --tilt: 0deg; }
