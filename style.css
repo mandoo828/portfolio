@@ -253,6 +253,73 @@ nav .nav-cta:hover { background: var(--accent); }
   .p-illustration .caption { margin-left: 0; }
 }
 
+/* ---- Projects, option B: loose framed grid (index-grid.html) ---- */
+.work-grid { padding-bottom: 120px; }
+.loose-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.lg-col { display: flex; flex-direction: column; gap: clamp(80px, 11vw, 160px); }
+.lg-col--right { padding-top: clamp(120px, 16vw, 240px); }   /* the right column starts lower */
+
+.frame { display: block; text-decoration: none; position: relative; }
+.frame-img { display: block; overflow: hidden; background: #e9e4da; }
+.frame-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(.2, .8, .2, 1);
+}
+.frame:hover .frame-img img { transform: scale(1.04); }
+/* a solid colour frame with a cut-out image centred inside */
+.frame-img--solid { background: #1f3d2b; display: flex; align-items: center; justify-content: center; }
+.frame-img--solid img { width: 72%; height: auto; object-fit: contain; filter: drop-shadow(0 14px 20px rgba(0,0,0,.3)); }
+
+/* title: white, hidden until hover, set sideways under the frame's left edge */
+.frame-title {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 12px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg) translateY(-6px);
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+.frame:hover .frame-title, .frame:focus-visible .frame-title { opacity: 1; transform: rotate(180deg); }
+@media (hover: none) { .frame-title { opacity: 1; transform: rotate(180deg); } }
+
+/* sizes, shapes and nudges: each project a little different for rhythm */
+.g-cashmere { width: 100%; }
+.g-cashmere .frame-img { aspect-ratio: 4 / 5; }
+.g-illustration { width: 56%; margin-left: 30%; }
+.g-illustration .frame-img { aspect-ratio: 560 / 712; }
+.g-hc { width: 84%; margin-left: 8%; }
+.g-hc .frame-img { aspect-ratio: 1 / 1; }
+.g-pb { width: 62%; margin-left: 38%; }
+.g-pb .frame-img { aspect-ratio: 4 / 3; }
+
+/* phones: one column, alternating widths and sides */
+@media (max-width: 760px) {
+  .loose-grid { grid-template-columns: 1fr; }
+  .lg-col { gap: 72px; }
+  .lg-col--right { padding-top: 72px; }
+  .g-cashmere { width: 88%; }
+  .g-illustration { width: 60%; margin-left: 34%; }
+  .g-hc { width: 80%; margin-left: 0; }
+  .g-pb { width: 70%; margin-left: 26%; }
+}
+
 /* ---- About ---- */
 .about { padding: 32px 0 104px; }
 .about-lead {
